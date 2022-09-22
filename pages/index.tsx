@@ -4,13 +4,16 @@ import { Typography } from '@mui/material';
 
 import { ShopLayout } from '../components/layouts';
 import { ProductList } from '../components/products';
-import { initialData } from '../database/products';
+import { FullLoading } from '../components/ui';
+import { useProducts } from '../hooks';
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
+	const { products, isLoading } = useProducts('/products');
+
 	return (
 		<ShopLayout
 			title={'Teslo-Shop - Home'}
-			pageDescription={'Entro los mejores productos de Testlo aquí'}
+			pageDescription={'Encuentra los mejores productos de Teslo aquí'}
 		>
 			<Typography variant='h1' component='h1'>
 				Tienda
@@ -19,9 +22,9 @@ const Home: NextPage = () => {
 				Todos los productos
 			</Typography>
 
-			<ProductList products={initialData.products as any} />
+			{isLoading ? <FullLoading /> : <ProductList products={products} />}
 		</ShopLayout>
 	);
 };
 
-export default Home;
+export default HomePage;

@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import {
 	AccountCircleOutlined,
 	AdminPanelSettings,
@@ -25,10 +27,15 @@ import {
 	ListSubheader,
 } from '@mui/material';
 
+import { UIContext } from '../../context';
+
 export const SideMenu = () => {
+	const { sideMenuOpen, toggleMenu } = useContext(UIContext);
+
 	return (
 		<Drawer
-			open={false}
+			open={sideMenuOpen}
+			onClose={() => toggleMenu()}
 			anchor='right'
 			sx={{ backdropFilter: 'blur(4px)', transition: 'all 0.5s ease-out' }}
 		>
