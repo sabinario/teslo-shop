@@ -5,6 +5,7 @@ import CategoryOutlined from '@mui/icons-material/CategoryOutlined';
 import ClearOutlined from '@mui/icons-material/ClearOutlined';
 import ConfirmationNumberOutlined from '@mui/icons-material/ConfirmationNumberOutlined';
 import CreditScoreOutlined from '@mui/icons-material/CreditScoreOutlined';
+import ErrorOutlined from '@mui/icons-material/ErrorOutlined';
 import EscalatorWarningOutlined from '@mui/icons-material/EscalatorWarningOutlined';
 import FemaleOutlined from '@mui/icons-material/FemaleOutlined';
 import LoginOutlined from '@mui/icons-material/LoginOutlined';
@@ -25,6 +26,7 @@ export {
 	ClearOutlined,
 	ConfirmationNumberOutlined,
 	CreditScoreOutlined,
+	ErrorOutlined,
 	EscalatorWarningOutlined,
 	FemaleOutlined,
 	LoginOutlined,

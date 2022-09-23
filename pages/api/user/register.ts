@@ -42,7 +42,7 @@ async function registerUser(req: NextApiRequest, res: NextApiResponse<Data>) {
 
 	if (name.length < 2) {
 		return res.status(400).json({
-			message: 'El nombr debe tener al menos 2 caracteres',
+			message: 'El nombre debe tener al menos 2 caracteres',
 		});
 	}
 

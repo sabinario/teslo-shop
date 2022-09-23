@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 
 import { ShopLayout } from '../../components/layouts';
 import { ProductList } from '../../components/products';
@@ -14,8 +13,6 @@ interface Props {
 }
 
 const CategoryPage = ({ gender }: Props) => {
-	const router = useRouter();
-	/* const { gender = 'all' } = router.query; */
 	const { products, isLoading } = useProducts(`/products?gender=${gender}`);
 
 	return (
