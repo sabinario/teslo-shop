@@ -47,7 +47,7 @@ export const CartList = ({ editable = false }: Props) => {
 					key={product.slug + product.size}
 					alignItems='center'
 				>
-					<Grid xs={3}>
+					<Grid xs={12} sm={4}>
 						<NextLink href={`/product/${product.slug}`}>
 							<Link>
 								<CardActionArea>
@@ -61,7 +61,8 @@ export const CartList = ({ editable = false }: Props) => {
 						</NextLink>
 					</Grid>
 					<Grid
-						xs={7}
+						xs={12}
+						sm={6}
 						display='flex'
 						alignItems='center'
 						sx={{ justifyContent: { xs: 'center' } }}
@@ -92,7 +93,8 @@ export const CartList = ({ editable = false }: Props) => {
 						</Box>
 					</Grid>
 					<Grid
-						xs={2}
+						xs={12}
+						sm={2}
 						display='flex'
 						alignItems='center'
 						flexDirection='column'

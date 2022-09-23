@@ -14,7 +14,6 @@ export const ProductSizeSelector = ({
 	onSelectSize,
 	inStock,
 }: Props) => {
-	console.log(inStock);
 	return (
 		<Box>
 			{sizes.map((size) => (
