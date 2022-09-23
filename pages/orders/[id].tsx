@@ -2,7 +2,6 @@ import React from 'react';
 
 import NextLink from 'next/link';
 
-import { CreditScoreOutlined } from '@mui/icons-material';
 import {
 	Box,
 	Card,
@@ -16,6 +15,7 @@ import {
 
 import { CartList, OrderSummary } from '../../components/cart';
 import { ShopLayout } from '../../components/layouts';
+import { CreditScoreOutlined } from '../../shared/material-icons';
 
 const OrderPage = () => {
 	return (

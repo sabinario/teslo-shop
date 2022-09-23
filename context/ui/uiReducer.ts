@@ -1,10 +1,12 @@
 import { UIState } from './';
 
-type UIActionType = { type: 'toggleMenu' };
+type UIActionType = { type: 'openMenu' } | { type: 'closeMenu' };
 export const uiReducer = (state: UIState, action: UIActionType): UIState => {
 	switch (action.type) {
-		case 'toggleMenu':
-			return { ...state, sideMenuOpen: !state.sideMenuOpen };
+		case 'closeMenu':
+			return { ...state, sideMenuOpen: false };
+		case 'openMenu':
+			return { ...state, sideMenuOpen: true };
 		default:
 			return state;
 	}

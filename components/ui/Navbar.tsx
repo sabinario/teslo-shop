@@ -1,26 +1,48 @@
-import { useContext } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
-import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
 import {
 	AppBar,
 	Badge,
 	Box,
 	Button,
 	IconButton,
+	Input,
+	InputAdornment,
 	Link,
 	Toolbar,
 	Typography,
 } from '@mui/material';
 
 import { UIContext } from '../../context';
+import {
+	ClearOutlined,
+	SearchOutlined,
+	ShoppingCartOutlined,
+} from '../../shared/material-icons';
 
 export const Navbar = () => {
 	const { toggleMenu } = useContext(UIContext);
 	const router = useRouter();
 	const { gender } = router.query;
+
+	const [searchQuery, setSearchQuery] = useState('');
+	const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+	const onSearchQuery = () => {
+		if (searchQuery.trim().length === 0) return;
+
+		router.push(`/search/${searchQuery}`);
+		setIsSearchVisible(false);
+		setSearchQuery('');
+	};
+
+	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target;
+		setSearchQuery(value);
+	};
 
 	return (
 		<AppBar>
@@ -31,8 +53,15 @@ export const Navbar = () => {
 						<Typography sx={{ marginLeft: 0.5 }}>Shop</Typography>
 					</Link>
 				</NextLink>
+
 				<Box flex={1} />
-				<Box sx={{ display: { xs: 'none', md: 'block' } }}>
+
+				<Box
+					sx={{
+						display: isSearchVisible ? 'none' : { xs: 'none', md: 'block' },
+					}}
+					className='fadeIn'
+				>
 					<NextLink href='/category/men' passHref>
 						<Link>
 							<Button color={gender === 'men' ? 'primary' : 'info'}>
@@ -55,8 +84,43 @@ export const Navbar = () => {
 						</Link>
 					</NextLink>
 				</Box>
+
 				<Box flex={1} />
-				<IconButton>
+
+				{/* Pantallas grandes */}
+				{isSearchVisible ? (
+					<Input
+						autoFocus
+						value={searchQuery}
+						type='text'
+						placeholder='Buscar...'
+						onChange={onChange}
+						onKeyDown={(e) => e.key === 'Enter' && onSearchQuery()}
+						endAdornment={
+							<InputAdornment position='end'>
+								<IconButton onClick={() => setIsSearchVisible(false)}>
+									<ClearOutlined />
+								</IconButton>
+							</InputAdornment>
+						}
+						className='fadeIn'
+						sx={{ display: { xs: 'none', sm: 'flex' } }}
+					/>
+				) : (
+					<IconButton
+						onClick={() => setIsSearchVisible(true)}
+						className='fadeIn'
+						sx={{ display: { xs: 'none', sm: 'flex' } }}
+					>
+						<SearchOutlined />
+					</IconButton>
+				)}
+
+				{/* Pantallas pequeñas */}
+				<IconButton
+					sx={{ display: { xs: 'flex', sm: 'none' } }}
+					onClick={(e) => e.detail !== 0 && toggleMenu()}
+				>
 					<SearchOutlined />
 				</IconButton>
 
@@ -67,7 +131,7 @@ export const Navbar = () => {
 						</Badge>
 					</IconButton>
 				</NextLink>
-				<Button onClick={() => toggleMenu()}>Menú</Button>
+				<Button onClick={(e) => e.detail !== 0 && toggleMenu()}>Menú</Button>
 			</Toolbar>
 		</AppBar>
 	);

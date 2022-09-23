@@ -18,7 +18,11 @@ export const UIProvider = ({ children }: ProviderProps) => {
 	const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
 
 	const toggleMenu = () => {
-		dispatch({ type: 'toggleMenu' });
+		if (state.sideMenuOpen) {
+			dispatch({ type: 'closeMenu' });
+			return;
+		}
+		dispatch({ type: 'openMenu' });
 	};
 
 	const value = {
