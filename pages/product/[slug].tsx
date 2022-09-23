@@ -73,8 +73,10 @@ const ProductPage: NextPage<Props> = ({ product }: Props) => {
 								currentQuantity={tempCartProduct.quantity}
 								onQuantityChange={onQuantityChange}
 								maxValue={product.inStock}
+								inStock={product.inStock === 0}
 							/>
 							<ProductSizeSelector
+								inStock={product.inStock === 0}
 								selectedSize={tempCartProduct.size}
 								sizes={product.sizes}
 								onSelectSize={onSelectedSize}

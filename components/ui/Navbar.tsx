@@ -126,10 +126,7 @@ export const Navbar = () => {
 
 				<NextLink href='/cart' passHref>
 					<IconButton>
-						<Badge
-							badgeContent={numberOfItems > 9 ? '10+' : numberOfItems}
-							color='primary'
-						>
+						<Badge max={10} badgeContent={numberOfItems} color='primary'>
 							<ShoppingCartOutlined />
 						</Badge>
 					</IconButton>
