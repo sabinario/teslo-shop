@@ -2,17 +2,16 @@ import React, { useMemo, useState } from 'react';
 
 import NextLink from 'next/link';
 
+import { IProduct } from '../../interfaces';
 import {
 	Box,
 	Card,
 	CardActionArea,
 	CardMedia,
+	Grid,
 	Link,
 	Typography,
-} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-
-import { IProduct } from '../../interfaces';
+} from '../../shared/material-components';
 
 interface Props {
 	product: IProduct;

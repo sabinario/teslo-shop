@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '../shared';
 
 export const lightTheme = createTheme({
 	palette: {

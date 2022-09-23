@@ -1,16 +1,15 @@
 import NextLink from 'next/link';
 
+import { initialData } from '../../database/products';
 import {
 	Box,
 	Button,
 	CardActionArea,
 	CardMedia,
+	Grid,
 	Link,
 	Typography,
-} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-
-import { initialData } from '../../database/products';
+} from '../../shared/material-components';
 import { ItemCounter } from '../ui';
 
 const productsInCart = [

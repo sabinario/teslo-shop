@@ -2,10 +2,8 @@ import React from 'react';
 
 import NextLink from 'next/link';
 
-import { Box, Button, Link, TextField, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-
 import { AuthLayout } from '../../components/layouts';
+import { Box, Button, Grid, Link, TextField, Typography } from '../../shared';
 
 const RegisterPage = () => {
 	return (

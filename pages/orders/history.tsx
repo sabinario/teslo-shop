@@ -2,8 +2,6 @@ import React from 'react';
 
 import NextLink from 'next/link';
 
-import { Chip, Link, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import {
 	DataGrid,
 	GridColDef,
@@ -12,6 +10,7 @@ import {
 } from '@mui/x-data-grid';
 
 import { ShopLayout } from '../../components/layouts';
+import { Chip, Grid, Link, Typography } from '../../shared';
 
 const rows: GridRowsProp = [
 	{ id: 1, paid: false, fullname: 'Sabino Fernandez' },

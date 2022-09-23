@@ -3,6 +3,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
+import { UIContext } from '../../context';
 import {
 	AppBar,
 	Badge,
@@ -14,9 +15,7 @@ import {
 	Link,
 	Toolbar,
 	Typography,
-} from '@mui/material';
-
-import { UIContext } from '../../context';
+} from '../../shared/material-components';
 import {
 	ClearOutlined,
 	SearchOutlined,

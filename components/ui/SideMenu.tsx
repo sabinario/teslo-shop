@@ -2,6 +2,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
+import { UIContext } from '../../context';
 import {
 	Box,
 	Divider,
@@ -15,9 +16,7 @@ import {
 	ListItemIcon,
 	ListItemText,
 	ListSubheader,
-} from '@mui/material';
-
-import { UIContext } from '../../context';
+} from '../../shared';
 import {
 	AccountCircleOutlined,
 	AdminPanelSettings,

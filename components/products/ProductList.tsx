@@ -1,6 +1,5 @@
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-
 import { IProduct } from '../../interfaces';
+import { Grid } from '../../shared/material-components';
 import { ProductCard } from './ProductCard';
 
 interface Props {

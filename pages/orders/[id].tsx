@@ -2,6 +2,8 @@ import React from 'react';
 
 import NextLink from 'next/link';
 
+import { CartList, OrderSummary } from '../../components/cart';
+import { ShopLayout } from '../../components/layouts';
 import {
 	Box,
 	Card,
@@ -11,10 +13,7 @@ import {
 	Grid,
 	Link,
 	Typography,
-} from '@mui/material';
-
-import { CartList, OrderSummary } from '../../components/cart';
-import { ShopLayout } from '../../components/layouts';
+} from '../../shared';
 import { CreditScoreOutlined } from '../../shared/material-icons';
 
 const OrderPage = () => {

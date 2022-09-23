@@ -1,9 +1,14 @@
-import { Button, Card, CardContent, Divider, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import { Box } from '@mui/system';
-
 import { CartList, OrderSummary } from '../../components/cart';
 import { ShopLayout } from '../../components/layouts';
+import {
+	Box,
+	Button,
+	Card,
+	CardContent,
+	Divider,
+	Grid,
+	Typography,
+} from '../../shared';
 
 const CartPage = () => {
 	return (

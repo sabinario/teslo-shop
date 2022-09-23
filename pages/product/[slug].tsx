@@ -1,14 +1,12 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
-import { Box, Button, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-
 import { ShopLayout } from '../../components/layouts';
 import { ProductSizeSelector } from '../../components/products';
 import { ProductSlideshow } from '../../components/products/ProductSlideshow';
 import { ItemCounter } from '../../components/ui';
 import { dbProducts } from '../../database';
 import { IProduct } from '../../interfaces';
+import { Box, Button, Grid, Typography } from '../../shared';
 
 interface Props {
 	product: IProduct;

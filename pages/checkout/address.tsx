@@ -1,18 +1,17 @@
 import React from 'react';
 
+import { ShopLayout } from '../../components/layouts';
 import {
 	Box,
 	Button,
 	FormControl,
+	Grid,
 	InputLabel,
 	MenuItem,
 	Select,
 	TextField,
 	Typography,
-} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
-
-import { ShopLayout } from '../../components/layouts';
+} from '../../shared';
 
 const AddressPage = () => {
 	return (

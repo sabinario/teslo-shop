@@ -3,9 +3,8 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 
-import { CssBaseline, ThemeProvider } from '@mui/material';
-
 import { UIProvider } from '../context';
+import { CssBaseline, ThemeProvider } from '../shared';
 import { lightTheme } from '../themes';
 
 function MyApp({ Component, pageProps }: AppProps) {

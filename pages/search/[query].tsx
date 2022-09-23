@@ -3,12 +3,11 @@ import type { NextPage } from 'next';
 // - Only if you need to pre-render a page whose data must be fetched at request time
 import { GetServerSideProps } from 'next';
 
-import { Box, Typography } from '@mui/material';
-
 import { ShopLayout } from '../../components/layouts';
 import { ProductList } from '../../components/products';
 import { dbProducts } from '../../database';
 import { IProduct } from '../../interfaces';
+import { Box, Typography } from '../../shared';
 
 interface Props {
 	products: IProduct[];
