@@ -4,16 +4,36 @@ import {
 	RemoveCircleOutline,
 } from '../../shared/material-icons';
 
-interface Props {}
+interface Props {
+	currentQuantity: number;
+	onQuantityChange: (newQuantity: number) => void;
+	maxValue: number;
+}
 
-export const ItemCounter = ({}: Props) => {
+export const ItemCounter = ({
+	currentQuantity,
+	onQuantityChange,
+	maxValue,
+}: Props) => {
+	const removeItem = () => {
+		if (currentQuantity === 1) return;
+		onQuantityChange(currentQuantity - 1);
+	};
+
+	const addItem = () => {
+		if (currentQuantity === maxValue) return;
+		onQuantityChange(currentQuantity + 1);
+	};
+
 	return (
 		<Box display='flex' alignItems='center'>
-			<IconButton>
+			<IconButton onClick={removeItem} disabled={currentQuantity === 1}>
 				<RemoveCircleOutline />
 			</IconButton>
-			<Typography sx={{ width: 40, textAlign: 'center' }}>1</Typography>
-			<IconButton>
+			<Typography sx={{ width: 40, textAlign: 'center' }}>
+				{currentQuantity}
+			</Typography>
+			<IconButton onClick={addItem} disabled={currentQuantity === maxValue}>
 				<AddCircleOutline />
 			</IconButton>
 		</Box>

@@ -3,7 +3,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
-import { UIContext } from '../../context';
+import { CartContext, UIContext } from '../../context';
 import {
 	AppBar,
 	Badge,
@@ -24,6 +24,7 @@ import {
 
 export const Navbar = () => {
 	const { toggleMenu } = useContext(UIContext);
+	const { numberOfItems } = useContext(CartContext);
 	const router = useRouter();
 	const { gender } = router.query;
 
@@ -125,7 +126,10 @@ export const Navbar = () => {
 
 				<NextLink href='/cart' passHref>
 					<IconButton>
-						<Badge badgeContent={2} color='primary'>
+						<Badge
+							badgeContent={numberOfItems > 9 ? '10+' : numberOfItems}
+							color='primary'
+						>
 							<ShoppingCartOutlined />
 						</Badge>
 					</IconButton>

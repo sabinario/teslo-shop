@@ -3,7 +3,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 
-import { UIProvider } from '../context';
+import { CartProvider, UIProvider } from '../context';
 import { CssBaseline, ThemeProvider } from '../shared';
 import { lightTheme } from '../themes';
 
@@ -15,12 +15,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 					fetch(resource, init).then((res) => res.json()),
 			}}
 		>
-			<UIProvider>
-				<ThemeProvider theme={lightTheme}>
-					<CssBaseline />
-					<Component {...pageProps} />
-				</ThemeProvider>
-			</UIProvider>
+			<CartProvider>
+				<UIProvider>
+					<ThemeProvider theme={lightTheme}>
+						<CssBaseline />
+						<Component {...pageProps} />
+					</ThemeProvider>
+				</UIProvider>
+			</CartProvider>
 		</SWRConfig>
 	);
 }
