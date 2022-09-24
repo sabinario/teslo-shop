@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import NextLink from 'next/link';
 
 import { CartList, OrderSummary } from '../../components/cart';
 import { ShopLayout } from '../../components/layouts';
+import { CartContext } from '../../context';
 import {
 	Box,
 	Button,
@@ -14,8 +15,26 @@ import {
 	Link,
 	Typography,
 } from '../../shared';
+import { countries } from '../../utils';
 
 const SummaryPage = () => {
+	const { address: shippingAddress, numberOfItems } = useContext(CartContext);
+
+	if (!shippingAddress) {
+		return <></>;
+	}
+
+	const {
+		firstName,
+		lastname,
+		address,
+		address2,
+		city,
+		phone,
+		country,
+		zipCode,
+	} = shippingAddress;
+
 	return (
 		<ShopLayout title='Carrito' pageDescription='Carrito de compras'>
 			<Typography variant='h1' component='h1'>
@@ -28,7 +47,10 @@ const SummaryPage = () => {
 				<Grid xs={12} sm={5}>
 					<Card className='summary-card'>
 						<CardContent>
-							<Typography variant='h2'>Resumen (3 productos) </Typography>
+							<Typography variant='h2'>
+								Resumen ({numberOfItems}{' '}
+								{numberOfItems > 1 ? 'productos' : 'producto'}){' '}
+							</Typography>
 							<Divider sx={{ my: 1 }} />
 
 							<Box display='flex' justifyContent='space-between'>
@@ -40,11 +62,20 @@ const SummaryPage = () => {
 								</NextLink>
 							</Box>
 
-							<Typography>Sabino Fernandez</Typography>
-							<Typography>470 Vista Alegre</Typography>
-							<Typography>Santaigo de Surco, 15054</Typography>
-							<Typography>Perú</Typography>
-							<Typography>+51 965 874 523</Typography>
+							<Typography>
+								{firstName} {lastname}
+							</Typography>
+							<Typography>
+								{address}
+								{address2 ? `, ${address2}` : ''}
+							</Typography>
+							<Typography>
+								{city}, {zipCode}
+							</Typography>
+							<Typography>
+								{countries[countries.findIndex((c) => c.code === country)].name}
+							</Typography>
+							<Typography>{phone}</Typography>
 
 							<Divider sx={{ my: 1 }} />
 

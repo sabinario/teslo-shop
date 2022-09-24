@@ -29,6 +29,10 @@ const LoginPage = () => {
 	const { loginUser } = useContext(AuthContext);
 	const [showError, setShowError] = useState(false);
 
+	console.log(router.query.p);
+	const previusPage =
+		(router.query.p?.toString() && `?p=${router.query.p.toString()}`) || '';
+
 	const {
 		register,
 		handleSubmit,
@@ -47,7 +51,8 @@ const LoginPage = () => {
 			}, 3000);
 			return;
 		}
-		router.replace('/');
+		const destination = router.query.p?.toString() || '/';
+		router.replace(`${destination}`);
 	};
 
 	return (
@@ -108,7 +113,7 @@ const LoginPage = () => {
 							</Button>
 						</Grid>
 						<Grid xs={12} display='flex' justifyContent='end'>
-							<NextLink href='/auth/register' passHref>
+							<NextLink href={`/auth/register${previusPage}`} passHref>
 								<Link underline='always'>¿No tienes cuenta?</Link>
 							</NextLink>
 						</Grid>

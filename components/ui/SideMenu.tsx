@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { UIContext } from '../../context';
+import { AuthContext, UIContext } from '../../context';
 import {
 	Box,
 	Divider,
@@ -31,6 +31,7 @@ import {
 } from '../../shared/material-icons';
 
 export const SideMenu = () => {
+	const { user, isLoggedIn, logout } = useContext(AuthContext);
 	const { sideMenuOpen, toggleMenu } = useContext(UIContext);
 	const [searchQuery, setSearchQuery] = useState('');
 
@@ -51,6 +52,11 @@ export const SideMenu = () => {
 	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
 		setSearchQuery(value);
+	};
+
+	const onLogoutClick = () => {
+		toggleMenu();
+		logout();
 	};
 
 	return (
@@ -80,22 +86,26 @@ export const SideMenu = () => {
 						/>
 					</ListItem>
 
-					<ListItemButton>
-						<ListItemIcon>
-							<AccountCircleOutlined />
-						</ListItemIcon>
-						<ListItemText primary={'Perfil'} />
-					</ListItemButton>
+					{isLoggedIn && (
+						<>
+							<ListItemButton>
+								<ListItemIcon>
+									<AccountCircleOutlined />
+								</ListItemIcon>
+								<ListItemText primary={'Perfil'} />
+							</ListItemButton>
 
-					<ListItemButton>
-						<ListItemIcon>
-							<ConfirmationNumberOutlined />
-						</ListItemIcon>
-						<ListItemText primary={'Mis Ordenes'} />
-					</ListItemButton>
+							<ListItemButton>
+								<ListItemIcon>
+									<ConfirmationNumberOutlined />
+								</ListItemIcon>
+								<ListItemText primary={'Mis Ordenes'} />
+							</ListItemButton>
+						</>
+					)}
 
 					<ListItemButton
-						sx={{ display: { xs: '', sm: 'none' } }}
+						sx={{ display: { xs: '', md: 'none' } }}
 						onClick={() => navigateTo('/category/men')}
 					>
 						<ListItemIcon>
@@ -105,7 +115,7 @@ export const SideMenu = () => {
 					</ListItemButton>
 
 					<ListItemButton
-						sx={{ display: { xs: '', sm: 'none' } }}
+						sx={{ display: { xs: '', md: 'none' } }}
 						onClick={() => navigateTo('/category/women')}
 					>
 						<ListItemIcon>
@@ -115,7 +125,7 @@ export const SideMenu = () => {
 					</ListItemButton>
 
 					<ListItemButton
-						sx={{ display: { xs: '', sm: 'none' } }}
+						sx={{ display: { xs: '', md: 'none' } }}
 						onClick={() => navigateTo('/category/kid')}
 					>
 						<ListItemIcon>
@@ -124,43 +134,55 @@ export const SideMenu = () => {
 						<ListItemText primary={'Niños'} />
 					</ListItemButton>
 
-					<ListItemButton>
-						<ListItemIcon>
-							<VpnKeyOutlined />
-						</ListItemIcon>
-						<ListItemText primary={'Ingresar'} />
-					</ListItemButton>
-
-					<ListItemButton>
-						<ListItemIcon>
-							<LoginOutlined />
-						</ListItemIcon>
-						<ListItemText primary={'Salir'} />
-					</ListItemButton>
+					{isLoggedIn ? (
+						<ListItemButton onClick={() => onLogoutClick()}>
+							<ListItemIcon>
+								<LoginOutlined />
+							</ListItemIcon>
+							<ListItemText primary={'Salir'} />
+						</ListItemButton>
+					) : (
+						<ListItemButton
+							onClick={() => {
+								toggleMenu();
+								navigateTo(`/auth/login?p=${router.asPath}`);
+							}}
+						>
+							<ListItemIcon>
+								<VpnKeyOutlined />
+							</ListItemIcon>
+							<ListItemText primary={'Ingresar'} />
+						</ListItemButton>
+					)}
 
 					{/* Admin */}
-					<Divider />
-					<ListSubheader>Admin Panel</ListSubheader>
 
-					<ListItemButton>
-						<ListItemIcon>
-							<CategoryOutlined />
-						</ListItemIcon>
-						<ListItemText primary={'Productos'} />
-					</ListItemButton>
-					<ListItemButton>
-						<ListItemIcon>
-							<ConfirmationNumberOutlined />
-						</ListItemIcon>
-						<ListItemText primary={'Ordenes'} />
-					</ListItemButton>
+					{user?.role === 'admin' && (
+						<>
+							<Divider />
+							<ListSubheader>Admin Panel</ListSubheader>
 
-					<ListItemButton>
-						<ListItemIcon>
-							<AdminPanelSettings />
-						</ListItemIcon>
-						<ListItemText primary={'Usuarios'} />
-					</ListItemButton>
+							<ListItemButton>
+								<ListItemIcon>
+									<CategoryOutlined />
+								</ListItemIcon>
+								<ListItemText primary={'Productos'} />
+							</ListItemButton>
+							<ListItemButton>
+								<ListItemIcon>
+									<ConfirmationNumberOutlined />
+								</ListItemIcon>
+								<ListItemText primary={'Ordenes'} />
+							</ListItemButton>
+
+							<ListItemButton>
+								<ListItemIcon>
+									<AdminPanelSettings />
+								</ListItemIcon>
+								<ListItemText primary={'Usuarios'} />
+							</ListItemButton>
+						</>
+					)}
 				</List>
 			</Box>
 		</Drawer>

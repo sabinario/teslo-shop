@@ -30,6 +30,9 @@ const RegisterPage = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [showError, setShowError] = useState(false);
 
+	const previusPage =
+		(router.query.p?.toString() && `?p=${router.query.p.toString()}`) || '';
+
 	const {
 		register,
 		handleSubmit,
@@ -136,7 +139,7 @@ const RegisterPage = () => {
 							</Button>
 						</Grid>
 						<Grid xs={12} display='flex' justifyContent='end'>
-							<NextLink href='/auth/login' passHref>
+							<NextLink href={`/auth/login${previusPage}`} passHref>
 								<Link underline='always'>¿Ya tienes una cuenta?</Link>
 							</NextLink>
 						</Grid>

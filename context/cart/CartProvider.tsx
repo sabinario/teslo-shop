@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 
 import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 import { ICartProduct } from '../../interfaces';
 import { CartContext, cartReducer } from './';
@@ -9,12 +10,25 @@ interface Props {
 	children: React.ReactNode;
 }
 
+export interface Address {
+	firstName: string;
+	lastname: string;
+	address: string;
+	address2?: string;
+	zipCode: string;
+	city: string;
+	country: string;
+	phone: string;
+}
+
 export interface CartState {
+	isLoaded: boolean;
 	cart: ICartProduct[];
 	numberOfItems: number;
 	subtotal: number;
 	tax: number;
 	total: number;
+	address?: Address;
 }
 
 const CART_INITIAL_STATE: CartState = {
@@ -23,6 +37,22 @@ const CART_INITIAL_STATE: CartState = {
 	subtotal: 0,
 	tax: 0,
 	total: 0,
+	isLoaded: false,
+
+	address: undefined,
+};
+
+export const getAddressFromCookies = (): Address => {
+	return {
+		firstName: Cookies.get('firstName') || '',
+		lastname: Cookies.get('lastname') || '',
+		address: Cookies.get('address') || '',
+		address2: Cookies.get('address2') || '',
+		zipCode: Cookies.get('zipCode') || '',
+		city: Cookies.get('city') || '',
+		country: Cookies.get('country') || '',
+		phone: Cookies.get('phone') || '',
+	};
 };
 
 export const CartProvider = ({ children }: Props) => {
@@ -61,6 +91,12 @@ export const CartProvider = ({ children }: Props) => {
 			dispatch({ type: 'LoadCartFromStorage', payload: productsInCookies });
 		} catch (err) {
 			dispatch({ type: 'LoadCartFromStorage', payload: [] });
+		}
+	}, []);
+
+	useEffect(() => {
+		if (Cookies.get('firstName')) {
+			dispatch({ type: 'LoadAddress', payload: getAddressFromCookies() });
 		}
 	}, []);
 
@@ -110,11 +146,24 @@ export const CartProvider = ({ children }: Props) => {
 		dispatch({ type: 'RemoveCartItem', payload: product });
 	};
 
+	const updateAddress = (address: Address) => {
+		Cookies.set('firstName', address.firstName);
+		Cookies.set('lastname', address.lastname);
+		Cookies.set('address', address.address);
+		Cookies.set('address2', address.address2 || '');
+		Cookies.set('zipCode', address.zipCode);
+		Cookies.set('city', address.city);
+		Cookies.set('country', address.country);
+		Cookies.set('phone', address.phone);
+		dispatch({ type: 'UpdateAddress', payload: address });
+	};
+
 	const value = {
 		...state,
 		addProduct,
 		updateCartProduct,
 		removeCartProduct,
+		updateAddress,
 	};
 
 	return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
