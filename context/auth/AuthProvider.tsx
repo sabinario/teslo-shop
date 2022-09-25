@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 import { tesloApi } from '../../api';
@@ -23,8 +24,16 @@ const AUTH_INITIAL_STATE: AuthState = {
 };
 
 export const AuthProvider = ({ children }: Props) => {
+	const { data, status } = useSession();
+
 	const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
 	const router = useRouter();
+
+	useEffect(() => {
+		if (status === 'authenticated') {
+			dispatch({ type: 'Login', payload: data?.user as IUser });
+		}
+	}, [status, data]);
 
 	const loginUser = async (
 		email: string,
@@ -99,7 +108,6 @@ export const AuthProvider = ({ children }: Props) => {
 	};
 
 	const logout = () => {
-		Cookies.remove('token');
 		Cookies.remove('cart');
 		Cookies.remove('firstName');
 		Cookies.remove('lastname');
@@ -109,7 +117,11 @@ export const AuthProvider = ({ children }: Props) => {
 		Cookies.remove('city');
 		Cookies.remove('country');
 		Cookies.remove('phone');
-		router.reload();
+
+		Cookies.remove('token');
+		// router.reload();
+
+		signOut();
 		dispatch({ type: 'Logout' });
 	};
 

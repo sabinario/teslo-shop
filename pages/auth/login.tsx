@@ -1,16 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { GetServerSideProps } from 'next';
+import { getProviders, getSession, signIn } from 'next-auth/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form/dist/types';
 
 import { AuthLayout } from '../../components/layouts';
-import { AuthContext } from '../../context';
 import {
 	Box,
 	Button,
 	Chip,
+	Divider,
 	Grid,
 	Link,
 	TextField,
@@ -26,12 +28,14 @@ type FormData = {
 
 const LoginPage = () => {
 	const router = useRouter();
-	const { loginUser } = useContext(AuthContext);
 	const [showError, setShowError] = useState(false);
+	const [providers, setProviders] = useState<any>({});
 
-	console.log(router.query.p);
-	const previusPage =
-		(router.query.p?.toString() && `?p=${router.query.p.toString()}`) || '';
+	useEffect(() => {
+		getProviders().then((prov) => {
+			setProviders(prov);
+		});
+	}, []);
 
 	const {
 		register,
@@ -42,7 +46,9 @@ const LoginPage = () => {
 	const onSubmit: SubmitHandler<FormData> = async ({ email, password }) => {
 		setShowError(false);
 
-		const isLogged = await loginUser(email, password);
+		await signIn('credentials', { email, password });
+
+		/* const isLogged = await loginUser(email, password);
 
 		if (!isLogged) {
 			setShowError(true);
@@ -52,7 +58,7 @@ const LoginPage = () => {
 			return;
 		}
 		const destination = router.query.p?.toString() || '/';
-		router.replace(`${destination}`);
+		router.replace(`${destination}`); */
 	};
 
 	return (
@@ -73,6 +79,7 @@ const LoginPage = () => {
 								/>
 							)}
 						</Grid>
+
 						<Grid xs={12}>
 							<TextField
 								label='Correo'
@@ -87,6 +94,7 @@ const LoginPage = () => {
 								helperText={errors.email?.message}
 							/>
 						</Grid>
+
 						<Grid xs={12}>
 							<TextField
 								label='Contraseña'
@@ -101,6 +109,7 @@ const LoginPage = () => {
 								helperText={errors.password?.message}
 							/>
 						</Grid>
+
 						<Grid xs={12}>
 							<Button
 								color='secondary'
@@ -112,16 +121,74 @@ const LoginPage = () => {
 								Ingresar
 							</Button>
 						</Grid>
+
 						<Grid xs={12} display='flex' justifyContent='end'>
-							<NextLink href={`/auth/register${previusPage}`} passHref>
+							<NextLink
+								href={
+									router.query.p
+										? `/auth/register?p=${router.query.p}`
+										: '/auth/register'
+								}
+								passHref
+							>
 								<Link underline='always'>¿No tienes cuenta?</Link>
 							</NextLink>
+						</Grid>
+
+						<Grid
+							xs={12}
+							display='flex'
+							justifyContent='end'
+							flexDirection='column'
+						>
+							<Divider sx={{ width: '100%', mb: 2 }} />
+							{Object.values(providers).map((provider: any) => {
+								if (provider.id === 'credentials')
+									return (
+										<div key='credentials' style={{ display: 'none' }}></div>
+									);
+
+								return (
+									<Button
+										key={provider.id}
+										variant='outlined'
+										fullWidth
+										color='primary'
+										sx={{ mb: 1 }}
+										onClick={() => signIn(provider.id)}
+									>
+										{provider.name}
+									</Button>
+								);
+							})}
 						</Grid>
 					</Grid>
 				</Box>
 			</form>
 		</AuthLayout>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+	query,
+}) => {
+	const session = await getSession({ req });
+
+	const { p = '/' } = query;
+
+	if (session) {
+		return {
+			redirect: {
+				destination: p.toString(),
+				permanent: false,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
 };
 
 export default LoginPage;

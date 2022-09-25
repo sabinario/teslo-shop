@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -15,7 +14,7 @@ import {
 	TextField,
 	Typography,
 } from '../../shared';
-import { countries, jwt } from '../../utils';
+import { countries } from '../../utils';
 
 interface FormData {
 	firstName: string;
@@ -40,8 +39,6 @@ const AddressPage = () => {
 	});
 
 	const onSubmit: SubmitHandler<FormData> = async (data) => {
-		console.log(data);
-
 		updateAddress(data);
 		router.push('/checkout/summary');
 	};
@@ -195,7 +192,7 @@ const AddressPage = () => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+/* export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const { token = '' } = req.cookies;
 	let isValidToken = false;
 
@@ -218,6 +215,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	return {
 		props: {},
 	};
-};
+}; */
 
 export default AddressPage;

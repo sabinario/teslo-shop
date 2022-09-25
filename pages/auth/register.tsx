@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 
+import { GetServerSideProps } from 'next';
+import { getSession, signIn } from 'next-auth/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -38,7 +40,6 @@ const RegisterPage = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormData>();
-	console.log('errors: ', errors);
 
 	const onRegisterSend: SubmitHandler<FormData> = async ({
 		email,
@@ -60,7 +61,7 @@ const RegisterPage = () => {
 			return;
 		}
 
-		router.replace('/');
+		await signIn('credentials', { email, password });
 	};
 
 	return (
@@ -148,6 +149,28 @@ const RegisterPage = () => {
 			</form>
 		</AuthLayout>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+	query,
+}) => {
+	const session = await getSession({ req });
+
+	const { p = '/' } = query;
+
+	if (session) {
+		return {
+			redirect: {
+				destination: p.toString(),
+				permanent: false,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
 };
 
 export default RegisterPage;
