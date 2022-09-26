@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -34,6 +35,7 @@ const AddressPage = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<FormData>({
 		defaultValues: getAddressFromCookies(),
 	});
@@ -42,6 +44,10 @@ const AddressPage = () => {
 		updateAddress(data);
 		router.push('/checkout/summary');
 	};
+
+	useEffect(() => {
+		reset(getAddressFromCookies());
+	}, [reset]);
 
 	return (
 		<ShopLayout
@@ -144,7 +150,7 @@ const AddressPage = () => {
 							<TextField
 								select
 								variant='outlined'
-								defaultValue={countries[0].code}
+								defaultValue={Cookies.get('country') || countries[0].code}
 								label='País'
 								{...register('country', {
 									required: 'Este campo es requerido',

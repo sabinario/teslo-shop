@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GetServerSideProps } from 'next';
 import { getProviders, getSession, signIn } from 'next-auth/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { SubmitHandler } from 'react-hook-form/dist/types';
+import { Controller, useForm } from 'react-hook-form';
 
 import { AuthLayout } from '../../components/layouts';
 import {
@@ -19,7 +18,6 @@ import {
 	Typography,
 } from '../../shared';
 import { ErrorOutlined } from '../../shared/material-icons';
-import { validations } from '../../utils';
 
 type FormData = {
 	email: string;
@@ -28,7 +26,16 @@ type FormData = {
 
 const LoginPage = () => {
 	const router = useRouter();
+
+	const {
+		register,
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm<FormData>();
+
 	const [showError, setShowError] = useState(false);
+
 	const [providers, setProviders] = useState<any>({});
 
 	useEffect(() => {
@@ -37,33 +44,24 @@ const LoginPage = () => {
 		});
 	}, []);
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<FormData>();
-
-	const onSubmit: SubmitHandler<FormData> = async ({ email, password }) => {
+	const onLoginUser = async ({ email, password }: FormData) => {
 		setShowError(false);
 
+		// const isValidLogin = await loginUser( email, password );
+		// if ( !isValidLogin ) {
+		//     setShowError(true);
+		//     setTimeout(() => setShowError(false), 3000);
+		//     return;
+		// }
+		// // Todo: navegar a la pantalla que el usuario estaba
+		// const destination = router.query.p?.toString() || '/';
+		// router.replace(destination);
 		await signIn('credentials', { email, password });
-
-		/* const isLogged = await loginUser(email, password);
-
-		if (!isLogged) {
-			setShowError(true);
-			setTimeout(() => {
-				setShowError(false);
-			}, 3000);
-			return;
-		}
-		const destination = router.query.p?.toString() || '/';
-		router.replace(`${destination}`); */
 	};
 
 	return (
-		<AuthLayout title='Ingresar'>
-			<form onSubmit={handleSubmit(onSubmit)} noValidate>
+		<AuthLayout title={'Ingresar'}>
+			<form onSubmit={handleSubmit(onLoginUser)} noValidate>
 				<Box sx={{ width: 350, padding: '10px 20px' }}>
 					<Grid container spacing={2}>
 						<Grid xs={12}>
@@ -81,42 +79,56 @@ const LoginPage = () => {
 						</Grid>
 
 						<Grid xs={12}>
-							<TextField
-								label='Correo'
-								variant='outlined'
-								fullWidth
-								type='email'
-								{...register('email', {
-									required: 'Este campo es requerido',
-									validate: validations.isEmail,
-								})}
-								error={!!errors.email}
-								helperText={errors.email?.message}
+							<Controller
+								name='email'
+								control={control}
+								rules={{ required: 'Este campo es requerido' }}
+								defaultValue={''}
+								render={({ field }) => (
+									<TextField
+										type='email'
+										label='Correo'
+										value={field.value}
+										onChange={field.onChange}
+										variant='outlined'
+										fullWidth
+										error={!!errors.email}
+										helperText={errors.email?.message}
+									/>
+								)}
 							/>
 						</Grid>
-
 						<Grid xs={12}>
-							<TextField
-								label='Contraseña'
-								type='password'
-								variant='outlined'
-								fullWidth
-								{...register('password', {
+							<Controller
+								name='password'
+								control={control}
+								rules={{
 									required: 'Este campo es requerido',
-									minLength: { value: 6, message: 'Mínimo 6 carácteres' },
-								})}
-								error={!!errors.password}
-								helperText={errors.password?.message}
-							/>
+									minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+								}}
+								defaultValue={''}
+								render={({ field }) => (
+									<TextField
+										type='password'
+										label='Contraseña'
+										value={field.value}
+										onChange={field.onChange}
+										variant='outlined'
+										fullWidth
+										error={!!errors.password}
+										helperText={errors.password?.message}
+									/>
+								)}
+							/>{' '}
 						</Grid>
 
 						<Grid xs={12}>
 							<Button
+								type='submit'
 								color='secondary'
 								className='circular-btn'
 								size='large'
 								fullWidth
-								type='submit'
 							>
 								Ingresar
 							</Button>
@@ -138,15 +150,13 @@ const LoginPage = () => {
 						<Grid
 							xs={12}
 							display='flex'
-							justifyContent='end'
 							flexDirection='column'
+							justifyContent='end'
 						>
 							<Divider sx={{ width: '100%', mb: 2 }} />
 							{Object.values(providers).map((provider: any) => {
 								if (provider.id === 'credentials')
-									return (
-										<div key='credentials' style={{ display: 'none' }}></div>
-									);
+									return <Box key='credentials' sx={{ display: 'none' }}></Box>;
 
 								return (
 									<Button

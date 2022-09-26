@@ -22,8 +22,6 @@ export const authOptions: NextAuthOptions = {
 				},
 			},
 			async authorize(credentials) {
-				console.log(credentials);
-
 				return await dbUsers.checkUserEmailPassword(
 					credentials!.email,
 					credentials!.password
