@@ -119,7 +119,7 @@ const LoginPage = () => {
 										helperText={errors.password?.message}
 									/>
 								)}
-							/>{' '}
+							/>
 						</Grid>
 
 						<Grid xs={12}>

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import NextLink from 'next/link';
 
 import { CartContext } from '../../context';
-import { ICartProduct } from '../../interfaces';
+import { ICartProduct, IOrderItem } from '../../interfaces';
 import {
 	Box,
 	Button,
@@ -18,9 +18,10 @@ import { ItemCounter } from '../ui';
 
 interface Props {
 	editable?: boolean;
+	products?: IOrderItem[];
 }
 
-export const CartList = ({ editable = false }: Props) => {
+export const CartList = ({ products, editable = false }: Props) => {
 	const {
 		cart: productsInCart,
 		updateCartProduct,
@@ -34,9 +35,12 @@ export const CartList = ({ editable = false }: Props) => {
 		product.quantity = newQuantityValue;
 		updateCartProduct(product);
 	};
+
+	const productsToShow = products ? products : productsInCart;
+
 	return (
 		<>
-			{productsInCart.map((product) => (
+			{productsToShow.map((product) => (
 				<Grid
 					container
 					spacing={0}
@@ -81,11 +85,13 @@ export const CartList = ({ editable = false }: Props) => {
 							{editable ? (
 								<ItemCounter
 									currentQuantity={product.quantity}
-									onQuantityChange={(value) => onChangeQuantity(value, product)}
+									onQuantityChange={(value) =>
+										onChangeQuantity(value, product as ICartProduct)
+									}
 									maxValue={10}
 								/>
 							) : (
-								<Typography variant='h4'>
+								<Typography variant='h5'>
 									{product.quantity}{' '}
 									{product.quantity > 1 ? 'productos' : 'producto'}
 								</Typography>
@@ -106,7 +112,7 @@ export const CartList = ({ editable = false }: Props) => {
 							<Button
 								variant='text'
 								color='error'
-								onClick={() => removeCartProduct(product)}
+								onClick={() => removeCartProduct(product as ICartProduct)}
 							>
 								Remover
 							</Button>

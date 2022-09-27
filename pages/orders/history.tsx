@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { GetServerSideProps, NextPage } from 'next';
+import { getSession } from 'next-auth/react';
 import NextLink from 'next/link';
 
 import {
@@ -10,13 +12,9 @@ import {
 } from '@mui/x-data-grid';
 
 import { ShopLayout } from '../../components/layouts';
+import { dbOrders } from '../../database';
+import { IOrder } from '../../interfaces';
 import { Chip, Grid, Link, Typography } from '../../shared';
-
-const rows: GridRowsProp = [
-	{ id: 1, paid: false, fullname: 'Sabino Fernandez' },
-	{ id: 2, paid: true, fullname: 'Jorge Torres' },
-	{ id: 3, paid: false, fullname: 'Sebastian Arias' },
-];
 
 const columns: GridColDef[] = [
 	{ field: 'id', headerName: 'ID', width: 100 },
@@ -41,7 +39,7 @@ const columns: GridColDef[] = [
 		description: 'Muestra información sobre el estatus de la orden',
 		renderCell: (params: GridRenderCellParams) => {
 			return (
-				<NextLink href={`/orders/${params.row.id}`} passHref>
+				<NextLink href={`/orders/${params.row.orden}`} passHref>
 					<Link underline='always'>Ver orden</Link>
 				</NextLink>
 			);
@@ -50,7 +48,18 @@ const columns: GridColDef[] = [
 	},
 ];
 
-const HistoryPage = () => {
+interface Props {
+	orders: IOrder[];
+}
+
+const HistoryPage: NextPage<Props> = ({ orders }: Props) => {
+	const rows: GridRowsProp = orders.map((order, index) => ({
+		id: index + 1,
+		paid: order.isPaid,
+		fullname: `${order.shippingAddress.firstName} ${order.shippingAddress.lastname}`,
+		orden: order._id,
+	}));
+
 	return (
 		<ShopLayout
 			title='Historial de ordenes'
@@ -64,6 +73,27 @@ const HistoryPage = () => {
 			</Grid>
 		</ShopLayout>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	const session: any = await getSession({ req });
+
+	if (!session) {
+		return {
+			redirect: {
+				destination: `/auth/login?p=/orders/history`,
+				permanent: false,
+			},
+		};
+	}
+
+	const orders = await dbOrders.getOrdersByUser(session.user._id);
+
+	return {
+		props: {
+			orders,
+		},
+	};
 };
 
 export default HistoryPage;

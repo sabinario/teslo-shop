@@ -95,7 +95,12 @@ export const SideMenu = () => {
 								<ListItemText primary={'Perfil'} />
 							</ListItemButton>
 
-							<ListItemButton>
+							<ListItemButton
+								onClick={() => {
+									toggleMenu();
+									navigateTo('/orders/history');
+								}}
+							>
 								<ListItemIcon>
 									<ConfirmationNumberOutlined />
 								</ListItemIcon>

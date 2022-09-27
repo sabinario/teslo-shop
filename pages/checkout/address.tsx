@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import { FormHelperText } from '@mui/material';
 
 import { ShopLayout } from '../../components/layouts';
 import { CartContext, getAddressFromCookies } from '../../context';
@@ -11,7 +12,9 @@ import {
 	Button,
 	FormControl,
 	Grid,
+	InputLabel,
 	MenuItem,
+	Select,
 	TextField,
 	Typography,
 } from '../../shared';
@@ -33,11 +36,12 @@ const AddressPage = () => {
 	const router = useRouter();
 	const {
 		register,
+		control,
 		handleSubmit,
 		formState: { errors },
 		reset,
 	} = useForm<FormData>({
-		defaultValues: getAddressFromCookies(),
+		defaultValues: { ...getAddressFromCookies() },
 	});
 
 	const onSubmit: SubmitHandler<FormData> = async (data) => {
@@ -146,24 +150,25 @@ const AddressPage = () => {
 						/>
 					</Grid>
 					<Grid xs={12} sm={6}>
-						<FormControl fullWidth>
-							<TextField
-								select
-								variant='outlined'
-								defaultValue={Cookies.get('country') || countries[0].code}
-								label='País'
-								{...register('country', {
-									required: 'Este campo es requerido',
-								})}
-								error={!!errors.country}
-							>
-								{countries.map((country) => (
-									<MenuItem key={country.code} value={country.code}>
-										{country.name}
-									</MenuItem>
-								))}
-							</TextField>
-						</FormControl>
+						<Controller
+							name='country'
+							control={control}
+							rules={{ required: 'Este campo es requerido' }}
+							defaultValue={''}
+							render={({ field }) => (
+								<FormControl fullWidth error={!!errors.country}>
+									<InputLabel>Country</InputLabel>
+									<Select {...field} label='Country'>
+										{countries.map((country) => (
+											<MenuItem key={country.code} value={country.code}>
+												{country.name}
+											</MenuItem>
+										))}
+									</Select>
+									<FormHelperText>{errors.country?.message}</FormHelperText>
+								</FormControl>
+							)}
+						/>
 					</Grid>
 					<Grid xs={12} sm={6}>
 						<TextField
@@ -197,30 +202,5 @@ const AddressPage = () => {
 		</ShopLayout>
 	);
 };
-
-/* export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const { token = '' } = req.cookies;
-	let isValidToken = false;
-
-	try {
-		await jwt.isValidToken(token);
-		isValidToken = true;
-	} catch (error) {
-		isValidToken = false;
-	}
-
-	if (!isValidToken) {
-		return {
-			redirect: {
-				destination: '/auth/login?p=/checkout/address',
-				permanent: false,
-			},
-		};
-	}
-
-	return {
-		props: {},
-	};
-}; */
 
 export default AddressPage;
