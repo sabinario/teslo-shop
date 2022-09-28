@@ -75,8 +75,20 @@ export const lightTheme = createTheme({
 			},
 			styleOverrides: {
 				root: {
-					boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
+					// boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
 					borderRadius: '10px',
+				},
+			},
+		},
+		MuiFormLabel: {
+			defaultProps: {
+				filled: false,
+			},
+		},
+		MuiDivider: {
+			styleOverrides: {
+				root: {
+					margin: '12px 0',
 				},
 			},
 		},

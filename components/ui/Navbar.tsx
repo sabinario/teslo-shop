@@ -15,12 +15,10 @@ import {
 	Link,
 	Toolbar,
 	Typography,
-} from '../../shared/material-components';
-import {
 	ClearOutlined,
 	SearchOutlined,
 	ShoppingCartOutlined,
-} from '../../shared/material-icons';
+} from '../../shared';
 
 export const Navbar = () => {
 	const { toggleMenu } = useContext(UIContext);

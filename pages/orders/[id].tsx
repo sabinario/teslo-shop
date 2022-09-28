@@ -19,12 +19,12 @@ import {
 	CardContent,
 	Chip,
 	CircularProgress,
+	CreditScoreOutlined,
 	Divider,
 	Grid,
 	Link,
 	Typography,
 } from '../../shared';
-import { CreditScoreOutlined } from '../../shared/material-icons';
 import { countries } from '../../utils';
 
 interface Props {
@@ -47,8 +47,6 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 	const { shippingAddress } = order;
 
 	const onOrderCompleted = async (details: OrderResponseBody) => {
-		console.log('details: ', details);
-
 		if (details.status !== 'COMPLETED') {
 			return alert('No hay pendiente en PayPal');
 		}

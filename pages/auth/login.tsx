@@ -16,8 +16,8 @@ import {
 	Link,
 	TextField,
 	Typography,
+	ErrorOutlined,
 } from '../../shared';
-import { ErrorOutlined } from '../../shared/material-icons';
 
 type FormData = {
 	email: string;

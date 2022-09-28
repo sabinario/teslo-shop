@@ -41,7 +41,16 @@ const AddressPage = () => {
 		formState: { errors },
 		reset,
 	} = useForm<FormData>({
-		defaultValues: { ...getAddressFromCookies() },
+		defaultValues: {
+			firstName: '',
+			lastname: '',
+			address: '',
+			address2: '',
+			zipCode: '',
+			city: '',
+			country: countries[0].code,
+			phone: '',
+		},
 	});
 
 	const onSubmit: SubmitHandler<FormData> = async (data) => {
@@ -61,7 +70,7 @@ const AddressPage = () => {
 			<Typography variant='h1' component='h1'>
 				Dirección
 			</Typography>
-			<form onSubmit={handleSubmit(onSubmit)} noValidate>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<Grid container spacing={2} sx={{ mt: 2 }}>
 					<Grid xs={12} sm={6}>
 						<TextField
@@ -98,10 +107,6 @@ const AddressPage = () => {
 							label='Dirección'
 							{...register('address', {
 								required: 'Este campo es requerido',
-								minLength: {
-									value: 2,
-									message: 'Por favor ingresa la dirección para el envío',
-								},
 							})}
 							error={!!errors.address}
 							helperText={errors.address?.message}
@@ -112,9 +117,7 @@ const AddressPage = () => {
 							fullWidth
 							variant='outlined'
 							label='Dirección 2 (opcional)'
-							{...register('address2', {
-								required: false,
-							})}
+							{...register('address2')}
 						/>
 					</Grid>
 					<Grid xs={12} sm={6}>
@@ -124,10 +127,6 @@ const AddressPage = () => {
 							label='Código Postal'
 							{...register('zipCode', {
 								required: 'Este campo es requerido',
-								minLength: {
-									value: 5,
-									message: 'Ingresa un código postal',
-								},
 							})}
 							error={!!errors.zipCode}
 							helperText={errors.zipCode?.message}
@@ -140,10 +139,6 @@ const AddressPage = () => {
 							label='Ciudad'
 							{...register('city', {
 								required: 'Este campo es requerido',
-								minLength: {
-									value: 2,
-									message: 'Indica una ciudad de envío',
-								},
 							})}
 							error={!!errors.city}
 							helperText={errors.city?.message}
@@ -153,8 +148,8 @@ const AddressPage = () => {
 						<Controller
 							name='country'
 							control={control}
+							defaultValue={countries[0].code}
 							rules={{ required: 'Este campo es requerido' }}
-							defaultValue={''}
 							render={({ field }) => (
 								<FormControl fullWidth error={!!errors.country}>
 									<InputLabel>Country</InputLabel>
@@ -177,10 +172,6 @@ const AddressPage = () => {
 							label='Teléfono'
 							{...register('phone', {
 								required: 'Este campo es requerido',
-								minLength: {
-									value: 4,
-									message: 'Por favor ingresa un nombre válido',
-								},
 							})}
 							error={!!errors.phone}
 							helperText={errors.phone?.message}

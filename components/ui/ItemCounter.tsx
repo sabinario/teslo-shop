@@ -1,8 +1,10 @@
-import { Box, IconButton, Typography } from '../../shared/material-components';
 import {
 	AddCircleOutline,
+	Box,
+	IconButton,
 	RemoveCircleOutline,
-} from '../../shared/material-icons';
+	Typography,
+} from '../../shared';
 
 interface Props {
 	currentQuantity: number;

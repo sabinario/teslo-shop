@@ -35,7 +35,7 @@ export const ProductCard = ({ product }: Props) => {
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
-			<Card>
+			<Card elevation={1}>
 				<NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
 					<Link>
 						<CardActionArea>

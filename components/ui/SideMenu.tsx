@@ -2,11 +2,18 @@ import { ChangeEvent, useContext, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
+import { DashboardOutlined } from '@mui/icons-material';
+
 import { AuthContext, UIContext } from '../../context';
 import {
+	AccountCircleOutlined,
+	AdminPanelSettings,
 	Box,
+	ConfirmationNumberOutlined,
 	Divider,
 	Drawer,
+	EscalatorWarningOutlined,
+	FemaleOutlined,
 	IconButton,
 	Input,
 	InputAdornment,
@@ -16,19 +23,11 @@ import {
 	ListItemIcon,
 	ListItemText,
 	ListSubheader,
-} from '../../shared';
-import {
-	AccountCircleOutlined,
-	AdminPanelSettings,
-	CategoryOutlined,
-	ConfirmationNumberOutlined,
-	EscalatorWarningOutlined,
-	FemaleOutlined,
 	LoginOutlined,
 	MaleOutlined,
 	SearchOutlined,
 	VpnKeyOutlined,
-} from '../../shared/material-icons';
+} from '../../shared/';
 
 export const SideMenu = () => {
 	const { user, isLoggedIn, logout } = useContext(AuthContext);
@@ -167,20 +166,36 @@ export const SideMenu = () => {
 							<Divider />
 							<ListSubheader>Admin Panel</ListSubheader>
 
-							<ListItemButton>
+							<ListItemButton
+								onClick={() => {
+									toggleMenu();
+									navigateTo(`/admin`);
+								}}
+							>
 								<ListItemIcon>
-									<CategoryOutlined />
+									<DashboardOutlined />
 								</ListItemIcon>
 								<ListItemText primary={'Productos'} />
 							</ListItemButton>
-							<ListItemButton>
+
+							<ListItemButton
+								onClick={() => {
+									toggleMenu();
+									navigateTo(`/admin/orders`);
+								}}
+							>
 								<ListItemIcon>
 									<ConfirmationNumberOutlined />
 								</ListItemIcon>
 								<ListItemText primary={'Ordenes'} />
 							</ListItemButton>
 
-							<ListItemButton>
+							<ListItemButton
+								onClick={() => {
+									toggleMenu();
+									navigateTo(`/admin/users`);
+								}}
+							>
 								<ListItemIcon>
 									<AdminPanelSettings />
 								</ListItemIcon>

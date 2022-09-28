@@ -1,8 +1,12 @@
 import NextLink from 'next/link';
 
 import { ShopLayout } from '../../components/layouts';
-import { Box, Link, Typography } from '../../shared';
-import { RemoveShoppingCartOutlined } from '../../shared/material-icons';
+import {
+	Box,
+	Link,
+	Typography,
+	RemoveShoppingCartOutlined,
+} from '../../shared';
 
 const EmptyCartPage = () => {
 	return (
