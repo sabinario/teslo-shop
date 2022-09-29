@@ -1,8 +1,7 @@
+import { db } from 'database';
+import { IOrder } from 'interfaces';
+import { Order } from 'models';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { db } from '../../../database';
-import { IOrder } from '../../../interfaces';
-import { Order } from '../../../models';
 
 type Data = { message: string } | IOrder[];
 
