@@ -1,6 +1,6 @@
 import { IProduct } from '../interfaces';
 import { Product } from '../models';
-import { db } from './';
+import { db } from '.';
 
 export const getProductBySlug = async (
 	slug: string

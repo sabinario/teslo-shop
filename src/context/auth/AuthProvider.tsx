@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 import { tesloApi } from '../../api';
 import { IUser } from '../../interfaces';
-import { AuthContext, authReducer } from './';
+import { AuthContext, authReducer } from '.';
 
 interface Props {
 	children: React.ReactNode;

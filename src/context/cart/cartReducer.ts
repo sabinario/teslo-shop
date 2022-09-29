@@ -1,5 +1,5 @@
 import { ICartProduct, ShippingAddress } from '../../interfaces';
-import { CartState } from './';
+import { CartState } from '.';
 
 type CartActionType =
 	| { type: 'UpdateCart'; payload: ICartProduct[] }

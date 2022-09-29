@@ -19,33 +19,34 @@ export async function middleware(req: NextRequest) {
 	//         return NextResponse.redirect(`${protocol}//${host}/auth/login?p=${pathname}`);
 	//     }
 	// }
+	const { protocol, host, pathname } = req.nextUrl;
 
 	if (!session) {
 		if (req.nextUrl.pathname.startsWith('/api/admin')) {
-			return NextResponse.redirect(new URL(`/api/auth/unauthorized`, req.url));
+			return NextResponse.redirect(
+				`${protocol}//${host}/api/auth/unauthorized`
+			);
 		}
-		const requestPage = req.nextUrl.pathname;
-		return NextResponse.redirect(new URL(`/auth/login?p=${requestPage}`));
+		return NextResponse.redirect(
+			`${protocol}//${host}/auth/login?p=${pathname}`
+		);
 	}
 
 	const validRoles = ['admin', 'super-user'];
 
 	if (req.nextUrl.pathname.startsWith('/admin')) {
 		if (!validRoles.includes(session.user.role)) {
-			return NextResponse.redirect(new URL('/', req.url));
+			return NextResponse.redirect(`${protocol}//${host}/`);
 		}
 	}
 
 	if (req.nextUrl.pathname.startsWith('/api/admin')) {
 		if (!validRoles.includes(session.user.role)) {
-			return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url));
+			return NextResponse.redirect(
+				`${protocol}//${host}/api/auth/unauthorized`
+			);
 		}
 	}
-
-	/* const { protocol, host, pathname } = req.nextUrl;
-		return NextResponse.redirect(
-			`${protocol}//${host}/auth/login?p=${pathname}`
-		); */
 
 	return NextResponse.next();
 }

@@ -1,4 +1,4 @@
-import { ISize, IUser } from './';
+import { ISize, IUser } from '.';
 
 export interface IOrder {
 	_id?: string;

@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 import { tesloApi } from '../../api';
 import { ICartProduct, IOrder, ShippingAddress } from '../../interfaces';
-import { CartContext, cartReducer } from './';
+import { CartContext, cartReducer } from '.';
 
 interface Props {
 	children: React.ReactNode;

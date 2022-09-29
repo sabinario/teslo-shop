@@ -1,4 +1,4 @@
-import { UIState } from './';
+import { UIState } from '.';
 
 type UIActionType = { type: 'openMenu' } | { type: 'closeMenu' };
 export const uiReducer = (state: UIState, action: UIActionType): UIState => {
