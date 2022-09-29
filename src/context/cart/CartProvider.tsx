@@ -4,8 +4,8 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 import Cookies from 'js-cookie';
 
-import { tesloApi } from '../../api';
-import { ICartProduct, IOrder, ShippingAddress } from '../../interfaces';
+import { tesloApi } from 'api';
+import { ICartProduct, IOrder, ShippingAddress } from 'interfaces';
 import { CartContext, cartReducer } from '.';
 
 interface Props {

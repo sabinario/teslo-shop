@@ -1,4 +1,4 @@
-import { createTheme } from '../shared';
+import { createTheme } from 'shared';
 
 export const lightTheme = createTheme({
 	palette: {

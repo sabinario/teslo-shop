@@ -2,11 +2,11 @@ import React from 'react';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-import { ShopLayout } from '../../components/layouts';
-import { ProductList } from '../../components/products';
-import { FullLoading } from '../../components/ui';
-import { useProducts } from '../../hooks';
-import { capitalize } from '../../shared';
+import { ShopLayout } from 'components/layouts';
+import { ProductList } from 'components/products';
+import { FullLoading } from 'components/ui';
+import { useProducts } from 'hooks';
+import { capitalize } from 'shared';
 
 interface Props {
 	gender: string;

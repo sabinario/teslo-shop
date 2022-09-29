@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 
-import { User } from '../models';
+import { User } from 'models';
 import { db } from '.';
 
 export const checkUserEmailPassword = async (

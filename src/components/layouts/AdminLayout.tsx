@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Box, Typography } from '../../shared';
-import { AdminNavbar } from '../admin';
-import { SideMenu } from '../ui';
+import { AdminNavbar, SideMenu } from 'components';
+import { Box, Typography } from 'shared';
 
 interface Props {
 	title: string;

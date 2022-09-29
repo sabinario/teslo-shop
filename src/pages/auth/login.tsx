@@ -6,7 +6,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
 
-import { AuthLayout } from '../../components/layouts';
+import { AuthLayout } from 'components/layouts';
 import {
 	Box,
 	Button,
@@ -17,7 +17,7 @@ import {
 	TextField,
 	Typography,
 	ErrorOutlined,
-} from '../../shared';
+} from 'shared';
 
 type FormData = {
 	email: string;

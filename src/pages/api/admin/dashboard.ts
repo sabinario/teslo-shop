@@ -1,7 +1,6 @@
+import { db } from 'database';
+import { Order, Product, User } from 'models';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { db } from '../../../database';
-import { Order, Product, User } from '../../../models';
 
 type Data = {
 	lowInventory: number; // productos con 10 o menos

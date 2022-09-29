@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Grid, Typography } from '../../shared';
+import { Card, CardContent, Grid, Typography } from 'shared';
 
 interface Props {
 	title: string | number;

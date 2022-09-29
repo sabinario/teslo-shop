@@ -1,5 +1,5 @@
-import { ShopLayout } from '../components/layouts';
-import { Box, Typography } from '../shared';
+import { ShopLayout } from 'components/layouts';
+import { Box, Typography } from 'shared';
 
 const Custom404 = () => {
 	return (

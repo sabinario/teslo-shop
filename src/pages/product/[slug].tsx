@@ -3,14 +3,14 @@ import { useContext, useState } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import { ShopLayout } from '../../components/layouts';
-import { ProductSizeSelector } from '../../components/products';
-import { ProductSlideshow } from '../../components/products/ProductSlideshow';
-import { ItemCounter } from '../../components/ui';
-import { CartContext } from '../../context';
-import { dbProducts } from '../../database';
-import { ICartProduct, IProduct, ISize } from '../../interfaces';
-import { Box, Button, Chip, Grid, Typography } from '../../shared';
+import { ShopLayout } from 'components/layouts';
+import { ProductSizeSelector } from 'components/products';
+import { ProductSlideshow } from 'components/products/ProductSlideshow';
+import { ItemCounter } from 'components/ui';
+import { CartContext } from 'context';
+import { dbProducts } from 'database';
+import { ICartProduct, IProduct, ISize } from 'interfaces';
+import { Box, Button, Chip, Grid, Typography } from 'shared';
 
 interface Props {
 	product: IProduct;

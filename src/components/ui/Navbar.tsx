@@ -3,7 +3,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
-import { CartContext, UIContext } from '../../context';
+import { CartContext, UIContext } from 'context';
 import {
 	AppBar,
 	Badge,
@@ -18,7 +18,7 @@ import {
 	ClearOutlined,
 	SearchOutlined,
 	ShoppingCartOutlined,
-} from '../../shared';
+} from 'shared';
 
 export const Navbar = () => {
 	const { toggleMenu } = useContext(UIContext);

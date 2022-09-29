@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 
+import { ItemCounter } from 'components';
+import { CartContext } from 'context';
+import { ICartProduct, IOrderItem } from 'interfaces';
 import NextLink from 'next/link';
-
-import { CartContext } from '../../context';
-import { ICartProduct, IOrderItem } from '../../interfaces';
 import {
 	Box,
 	Button,
@@ -12,9 +12,8 @@ import {
 	Grid,
 	Link,
 	Typography,
-} from '../../shared/material-components';
-import { currency } from '../../utils';
-import { ItemCounter } from '../ui';
+} from 'shared/material-components';
+import { currency } from 'utils';
 
 interface Props {
 	editable?: boolean;

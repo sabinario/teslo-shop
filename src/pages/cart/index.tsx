@@ -2,9 +2,9 @@ import { useContext, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { CartList, OrderSummary } from '../../components/cart';
-import { ShopLayout } from '../../components/layouts';
-import { CartContext } from '../../context';
+import { CartList, OrderSummary } from 'components/cart';
+import { ShopLayout } from 'components/layouts';
+import { CartContext } from 'context';
 import {
 	Box,
 	Button,
@@ -13,7 +13,7 @@ import {
 	Divider,
 	Grid,
 	Typography,
-} from '../../shared';
+} from 'shared';
 
 const CartPage = () => {
 	const { cart, isLoaded } = useContext(CartContext);

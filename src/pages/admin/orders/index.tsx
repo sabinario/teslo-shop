@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { AdminLayout } from 'components/layouts';
+import { IOrder, IUser } from 'interfaces';
+import { Chip, ConfirmationNumberOutlined, Grid, Typography } from 'shared';
 import useSWR from 'swr';
+import { currency } from 'utils';
 
 import { DataGrid } from '@mui/x-data-grid/DataGrid';
 import {
@@ -8,16 +12,6 @@ import {
 	GridRenderCellParams,
 	GridRowsProp,
 } from '@mui/x-data-grid/models';
-
-import { AdminLayout } from '../../../components/layouts';
-import { IOrder, IUser } from '../../../interfaces';
-import {
-	Chip,
-	ConfirmationNumberOutlined,
-	Grid,
-	Typography,
-} from '../../../shared';
-import { currency } from '../../../utils';
 
 const OrdersPage = () => {
 	const { data, error, mutate } = useSWR<IOrder[]>('/api/admin/orders');

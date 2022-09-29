@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 
+import { UIContext } from 'context';
 import NextLink from 'next/link';
-
-import { UIContext } from '../../context';
 import {
 	AppBar,
 	Box,
@@ -10,7 +9,7 @@ import {
 	Link,
 	Toolbar,
 	Typography,
-} from '../../shared/material-components';
+} from 'shared/material-components';
 
 export const AdminNavbar = () => {
 	const { toggleMenu } = useContext(UIContext);

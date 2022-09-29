@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { tesloApi } from 'api';
+import { AdminLayout } from 'components/layouts';
+import { IUser } from 'interfaces';
+import { Grid, MenuItem, PeopleOutline, Select } from 'shared';
 import useSWR from 'swr';
 
 import {
@@ -8,11 +12,6 @@ import {
 	GridRenderCellParams,
 	GridRowsProp,
 } from '@mui/x-data-grid';
-
-import { tesloApi } from '../../../api';
-import { AdminLayout } from '../../../components/layouts';
-import { IUser } from '../../../interfaces';
-import { Grid, MenuItem, PeopleOutline, Select } from '../../../shared';
 
 const UsersPage = () => {
 	const { data, error, mutate } = useSWR<IUser[]>('/api/admin/users');

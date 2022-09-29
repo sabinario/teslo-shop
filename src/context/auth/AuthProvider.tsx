@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-import { tesloApi } from '../../api';
-import { IUser } from '../../interfaces';
+import { tesloApi } from 'api';
+import { IUser } from 'interfaces';
 import { AuthContext, authReducer } from '.';
 
 interface Props {

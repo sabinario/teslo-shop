@@ -1,5 +1,5 @@
-import { IProduct } from '../interfaces';
-import { Product } from '../models';
+import { IProduct } from 'interfaces';
+import { Product } from 'models';
 import { db } from '.';
 
 export const getProductBySlug = async (

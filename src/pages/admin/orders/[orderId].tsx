@@ -2,10 +2,10 @@ import React from 'react';
 
 import { GetServerSideProps, NextPage } from 'next';
 
-import { CartList, OrderSummary } from '../../../components/cart';
-import { AdminLayout } from '../../../components/layouts';
-import { dbOrders } from '../../../database';
-import { IOrder } from '../../../interfaces';
+import { CartList, OrderSummary } from 'components/cart';
+import { AdminLayout } from 'components/layouts';
+import { dbOrders } from 'database';
+import { IOrder } from 'interfaces';
 import {
 	Box,
 	Card,
@@ -17,8 +17,8 @@ import {
 	Grid,
 	ShoppingCartIcon,
 	Typography,
-} from '../../../shared';
-import { countries } from '../../../utils';
+} from 'shared';
+import { countries } from 'utils';
 
 interface Props {
 	order: IOrder;

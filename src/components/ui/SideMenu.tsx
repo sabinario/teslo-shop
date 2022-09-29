@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { DashboardOutlined } from '@mui/icons-material';
 
-import { AuthContext, UIContext } from '../../context';
+import { AuthContext, UIContext } from 'context';
 import {
 	AccountCircleOutlined,
 	AdminPanelSettings,
@@ -27,7 +27,7 @@ import {
 	MaleOutlined,
 	SearchOutlined,
 	VpnKeyOutlined,
-} from '../../shared/';
+} from 'shared/';
 
 export const SideMenu = () => {
 	const { user, isLoggedIn, logout } = useContext(AuthContext);

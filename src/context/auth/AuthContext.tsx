@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { IUser } from '../../interfaces';
+import { IUser } from 'interfaces';
 
 interface ContextProps {
 	isLoggedIn: boolean;

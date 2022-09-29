@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import 'styles/globals.css';
 
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
@@ -6,9 +6,9 @@ import { SWRConfig } from 'swr';
 
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
-import { AuthProvider, CartProvider, UIProvider } from '../context';
-import { CssBaseline, ThemeProvider } from '../shared';
-import { lightTheme } from '../themes';
+import { AuthProvider, CartProvider, UIProvider } from 'context';
+import { CssBaseline, ThemeProvider } from 'shared';
+import { lightTheme } from 'themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (

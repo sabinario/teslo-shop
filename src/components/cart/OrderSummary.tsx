@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { CartContext } from '../../context';
-import { IOrder } from '../../interfaces';
-import { Grid, Typography } from '../../shared/material-components';
-import { currency } from '../../utils';
+import { CartContext } from 'context';
+import { IOrder } from 'interfaces';
+import { Grid, Typography } from 'shared/material-components';
+import { currency } from 'utils';
 
 interface Props {
 	orderData?: IOrder;

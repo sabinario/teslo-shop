@@ -1,9 +1,9 @@
 import { isValidObjectId } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { db } from '../../../database';
-import { IUser } from '../../../interfaces';
-import { User } from '../../../models';
+import { db } from 'database';
+import { IUser } from 'interfaces';
+import { User } from 'models';
 
 type Data = { message: string } | IUser[];
 

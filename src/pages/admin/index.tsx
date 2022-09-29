@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import useSWR from 'swr';
 
-import { SummaryTile } from '../../components/admin';
-import { AdminLayout } from '../../components/layouts';
-import { DashboardSummaryResponse } from '../../interfaces';
+import { SummaryTile } from 'components/admin';
+import { AdminLayout } from 'components/layouts';
+import { DashboardSummaryResponse } from 'interfaces';
 import {
 	AccessTimeOutlined,
 	AttachMoneyOutlined,
@@ -17,7 +17,7 @@ import {
 	GroupOutlined,
 	ProductionQuantityLimitsOutlined,
 	Typography,
-} from '../../shared';
+} from 'shared';
 
 const DashboardPage = () => {
 	const { data, error } = useSWR<DashboardSummaryResponse>(

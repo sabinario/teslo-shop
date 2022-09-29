@@ -1,6 +1,6 @@
-import { IProduct } from '../../interfaces';
-import { Grid } from '../../shared/material-components';
-import { ProductCard } from './ProductCard';
+import { ProductCard } from 'components';
+import { IProduct } from 'interfaces';
+import { Grid } from 'shared/material-components';
 
 interface Props {
 	products: IProduct[];

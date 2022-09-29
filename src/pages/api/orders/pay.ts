@@ -1,9 +1,8 @@
 import axios from 'axios';
+import { db } from 'database';
+import { IPaypal } from 'interfaces';
+import { Order } from 'models';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { db } from '../../../database';
-import { IPaypal } from '../../../interfaces';
-import { Order } from '../../../models';
 
 type Data = {
 	message: string;

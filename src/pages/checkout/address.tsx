@@ -5,8 +5,8 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { FormHelperText } from '@mui/material';
 
-import { ShopLayout } from '../../components/layouts';
-import { CartContext, getAddressFromCookies } from '../../context';
+import { ShopLayout } from 'components/layouts';
+import { CartContext, getAddressFromCookies } from 'context';
 import {
 	Box,
 	Button,
@@ -17,8 +17,8 @@ import {
 	Select,
 	TextField,
 	Typography,
-} from '../../shared';
-import { countries } from '../../utils';
+} from 'shared';
+import { countries } from 'utils';
 
 interface FormData {
 	firstName: string;

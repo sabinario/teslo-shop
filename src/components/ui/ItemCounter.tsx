@@ -4,7 +4,7 @@ import {
 	IconButton,
 	RemoveCircleOutline,
 	Typography,
-} from '../../shared';
+} from 'shared';
 
 interface Props {
 	currentQuantity: number;

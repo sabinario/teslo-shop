@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 import NextLink from 'next/link';
 
-import { IProduct } from '../../interfaces';
+import { IProduct } from 'interfaces';
 import {
 	Box,
 	Card,
@@ -12,7 +12,7 @@ import {
 	Grid,
 	Link,
 	Typography,
-} from '../../shared/material-components';
+} from 'shared/material-components';
 
 interface Props {
 	product: IProduct;

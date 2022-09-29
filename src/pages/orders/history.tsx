@@ -11,10 +11,10 @@ import {
 	GridRowsProp,
 } from '@mui/x-data-grid';
 
-import { ShopLayout } from '../../components/layouts';
-import { dbOrders } from '../../database';
-import { IOrder } from '../../interfaces';
-import { Chip, Grid, Link, Typography } from '../../shared';
+import { ShopLayout } from 'components/layouts';
+import { dbOrders } from 'database';
+import { IOrder } from 'interfaces';
+import { Chip, Grid, Link, Typography } from 'shared';
 
 const columns: GridColDef[] = [
 	{ field: 'id', headerName: 'ID', width: 100 },

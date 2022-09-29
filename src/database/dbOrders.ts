@@ -1,8 +1,7 @@
+import { db } from 'database';
+import { IOrder } from 'interfaces';
+import { Order } from 'models';
 import { isValidObjectId } from 'mongoose';
-
-import { IOrder } from '../interfaces';
-import { Order } from '../models';
-import { db } from './';
 
 export const getOrderById = async (id: string): Promise<IOrder | null> => {
 	if (!isValidObjectId(id)) {

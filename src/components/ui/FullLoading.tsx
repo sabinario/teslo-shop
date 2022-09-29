@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-	Box,
-	CircularProgress,
-	Typography,
-} from '../../shared/material-components';
+import { Box, CircularProgress, Typography } from 'shared/material-components';
 
 export const FullLoading = () => {
 	return (

@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github';
 
-import { dbUsers } from '../../../database';
+import { dbUsers } from 'database';
 
 export const authOptions: NextAuthOptions = {
 	// Configure one or more authentication providers

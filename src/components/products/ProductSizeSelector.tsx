@@ -1,5 +1,5 @@
-import { ISize } from '../../interfaces';
-import { Box, Button } from '../../shared/material-components';
+import { ISize } from 'interfaces';
+import { Box, Button } from 'shared/material-components';
 
 interface Props {
 	selectedSize?: ISize;

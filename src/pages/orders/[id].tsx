@@ -8,11 +8,11 @@ import { useRouter } from 'next/router';
 import { CreditCardOffOutlined } from '@mui/icons-material';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 
-import { tesloApi } from '../../api';
-import { CartList, OrderSummary } from '../../components/cart';
-import { ShopLayout } from '../../components/layouts';
-import { dbOrders } from '../../database';
-import { IOrder } from '../../interfaces';
+import { tesloApi } from 'api';
+import { CartList, OrderSummary } from 'components/cart';
+import { ShopLayout } from 'components/layouts';
+import { dbOrders } from 'database';
+import { IOrder } from 'interfaces';
 import {
 	Box,
 	Card,
@@ -24,8 +24,8 @@ import {
 	Grid,
 	Link,
 	Typography,
-} from '../../shared';
-import { countries } from '../../utils';
+} from 'shared';
+import { countries } from 'utils';
 
 interface Props {
 	order: IOrder;

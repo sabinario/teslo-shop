@@ -4,9 +4,9 @@ import Cookies from 'js-cookie';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
-import { CartList, OrderSummary } from '../../components/cart';
-import { ShopLayout } from '../../components/layouts';
-import { CartContext } from '../../context';
+import { CartList, OrderSummary } from 'components/cart';
+import { ShopLayout } from 'components/layouts';
+import { CartContext } from 'context';
 import {
 	Box,
 	Button,
@@ -17,8 +17,8 @@ import {
 	Grid,
 	Link,
 	Typography,
-} from '../../shared';
-import { countries } from '../../utils';
+} from 'shared';
+import { countries } from 'utils';
 
 const SummaryPage = () => {
 	const router = useRouter();
