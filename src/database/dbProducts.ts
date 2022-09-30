@@ -1,6 +1,7 @@
 import { IProduct } from 'interfaces';
 import { Product } from 'models';
-import { db } from '.';
+
+import { db } from './';
 
 export const getProductBySlug = async (
 	slug: string
@@ -15,6 +16,13 @@ export const getProductBySlug = async (
 	}
 
 	await db.disconnect();
+
+	// TODO: Procesamiento de las imagenes cuando se suban al servidor
+	product.images = product.images.map((image) => {
+		return image.includes('http')
+			? image
+			: `${process.env.HOST_NAME}/products/${image}`;
+	});
 
 	return JSON.parse(JSON.stringify(product));
 };
@@ -48,7 +56,16 @@ export const getProductsByQuery = async (
 
 	await db.disconnect();
 
-	return products;
+	const updatedProducts = products.map((product) => {
+		product.images = product.images.map((image) => {
+			return image.includes('http')
+				? image
+				: `${process.env.HOST_NAME}/products/${image}`;
+		});
+		return product;
+	});
+
+	return updatedProducts;
 };
 
 export const getAllProducts = async (): Promise<IProduct[]> => {
@@ -58,5 +75,14 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
 
 	await db.disconnect();
 
-	return JSON.parse(JSON.stringify(products));
+	const updatedProducts = products.map((product) => {
+		product.images = product.images.map((image) => {
+			return image.includes('http')
+				? image
+				: `${process.env.HOST_NAME}/products/${image}`;
+		});
+		return product;
+	});
+
+	return JSON.parse(JSON.stringify(updatedProducts));
 };

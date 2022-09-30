@@ -1,9 +1,13 @@
+import { v2 as cloudinary } from 'cloudinary';
 import { db } from 'database';
 import { IProduct } from 'interfaces';
 import { Product } from 'models';
+import { isValidObjectId } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = { message: string } | IProduct[];
+cloudinary.config(process.env.CLOUDINARY_URL || '');
+
+type Data = { message: string } | IProduct[] | IProduct;
 
 export default function handler(
 	req: NextApiRequest,
@@ -13,9 +17,9 @@ export default function handler(
 		case 'GET':
 			return getProducts(req, res);
 		case 'PUT':
-			break;
+			return updateProducts(req, res);
 		case 'POST':
-			break;
+			return createProduct(req, res);
 
 		default:
 			res.status(400).json({ message: 'Bad Request' });
@@ -33,6 +37,92 @@ async function getProducts(req: NextApiRequest, res: NextApiResponse<Data>) {
 		return res.status(400).json({ message: 'No hay products' });
 	}
 
+	const updatedProducts = products.map((product) => {
+		product.images = product.images.map((image) => {
+			return image.includes('http')
+				? image
+				: `${process.env.HOST_NAME}/products/${image}`;
+		});
+		return product;
+	});
+
 	await db.disconnect();
-	return res.status(200).json(products);
+	return res.status(200).json(updatedProducts);
+}
+
+async function updateProducts(req: NextApiRequest, res: NextApiResponse<Data>) {
+	const { _id = '', images = [] } = req.body as IProduct;
+
+	if (!isValidObjectId(_id)) {
+		return res.status(400).json({ message: 'El id del producto no es válido' });
+	}
+
+	if (images.length < 2) {
+		return res
+			.status(400)
+			.json({ message: 'Son necesarias 2 imagenes como mínimo' });
+	}
+
+	// TODO: posiblemente tendremos un localhost:3000/products/alkdjalsd.png
+
+	try {
+		await db.connect();
+
+		const product = await Product.findById(_id);
+
+		if (!product) {
+			return res
+				.status(400)
+				.json({ message: 'No existe un producto con ese ID' });
+		}
+
+		// TODO: Eliminar fotos en Cloudinary
+		product.images.forEach(async (image) => {
+			if (!images.includes(image)) {
+				const [fileID, extension] = image
+					.substring(image.lastIndexOf('/') + 1)
+					.split('.');
+				await cloudinary.uploader.destroy(fileID);
+			}
+		});
+
+		await product.update(req.body);
+
+		await db.disconnect();
+
+		res.status(200).json(product);
+	} catch (error) {
+		console.log(error);
+
+		await db.disconnect();
+		return res.status(400).json({ message: 'Check server logs' });
+	}
+}
+
+async function createProduct(req: NextApiRequest, res: NextApiResponse<Data>) {
+	const { images = [] } = req.body as IProduct;
+
+	if (images.length < 2)
+		return res.status(400).json({ message: 'Son necesarias 2 imagenes' });
+
+	try {
+		await db.connect();
+
+		const productInDB = await Product.findOne({ slug: req.body.slug });
+		if (productInDB) {
+			await db.disconnect();
+			return res
+				.status(400)
+				.json({ message: 'Ya existe un producto con ese slug' });
+		}
+
+		const product = new Product(req.body);
+		await product.save();
+
+		await db.disconnect();
+		return res.status(201).json(product);
+	} catch (error) {
+		await db.disconnect();
+		return res.status(400).json({ message: 'Check server logs' });
+	}
 }

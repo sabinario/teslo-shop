@@ -1,8 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-
 import { db, SHOP_CONSTANTS } from 'database';
 import { IProduct } from 'interfaces';
 import { Product } from 'models';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = { message: string } | IProduct[];
 
@@ -35,5 +34,14 @@ async function getProducts(req: NextApiRequest, res: NextApiResponse<Data>) {
 
 	await db.disconnect();
 
-	return res.status(200).json(products);
+	const updatedProducts = products.map((product) => {
+		product.images = product.images.map((image) => {
+			return image.includes('http')
+				? image
+				: `${process.env.HOST_NAME}/products/${image}`;
+		});
+		return product;
+	});
+
+	return res.status(200).json(updatedProducts);
 }

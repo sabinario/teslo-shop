@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { GetStaticPaths, GetStaticProps } from 'next';
-
-import { ShopLayout } from 'components/layouts';
-import { ProductList } from 'components/products';
-import { FullLoading } from 'components/ui';
+import { FullLoading, ProductList, ShopLayout } from 'components';
 import { useProducts } from 'hooks';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { capitalize } from 'shared';
 
 interface Props {

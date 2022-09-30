@@ -5,20 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(req: NextRequest) {
 	const session: any = await getToken({ req });
-
-	// if (request.nextUrl.pathname.startsWith('/checkout')) {
-	//     try {
-	//         await jose.jwtVerify(
-	//             request.cookies.get('token') as string,
-	//             new TextEncoder().encode(process.env.JWT_SECRET_SEED)
-	//         );
-	//
-	//         return NextResponse.next();
-	//     } catch (err) {
-	//         const { protocol, host, pathname } = request.nexturl;
-	//         return NextResponse.redirect(`${protocol}//${host}/auth/login?p=${pathname}`);
-	//     }
-	// }
 	const { protocol, host, pathname } = req.nextUrl;
 
 	if (!session) {

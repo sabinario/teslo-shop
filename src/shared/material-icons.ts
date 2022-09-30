@@ -11,6 +11,7 @@ import CreditCardOffOutlined from '@mui/icons-material/CreditCardOffOutlined';
 import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
 import CreditScoreOutlined from '@mui/icons-material/CreditScoreOutlined';
 import DashboardOutlined from '@mui/icons-material/DashboardOutlined';
+import DriveFileRenameOutline from '@mui/icons-material/DriveFileRenameOutline';
 import ErrorOutlined from '@mui/icons-material/ErrorOutlined';
 import EscalatorWarningOutlined from '@mui/icons-material/EscalatorWarningOutlined';
 import FemaleOutlined from '@mui/icons-material/FemaleOutlined';
@@ -21,9 +22,11 @@ import PeopleOutline from '@mui/icons-material/PeopleOutline';
 import ProductionQuantityLimitsOutlined from '@mui/icons-material/ProductionQuantityLimitsOutlined';
 import RemoveCircleOutline from '@mui/icons-material/RemoveCircleOutline';
 import RemoveShoppingCartOutlined from '@mui/icons-material/RemoveShoppingCartOutlined';
+import SaveOutlined from '@mui/icons-material/SaveOutlined';
 import SearchOutlined from '@mui/icons-material/SearchOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
+import UploadOutlined from '@mui/icons-material/UploadOutlined';
 import VpnKeyOutlined from '@mui/icons-material/VpnKeyOutlined';
 
 /*  */
@@ -42,6 +45,7 @@ export {
 	CreditCardOutlined,
 	CreditScoreOutlined,
 	DashboardOutlined,
+	DriveFileRenameOutline,
 	ErrorOutlined,
 	EscalatorWarningOutlined,
 	FemaleOutlined,
@@ -52,8 +56,10 @@ export {
 	ProductionQuantityLimitsOutlined,
 	RemoveCircleOutline,
 	RemoveShoppingCartOutlined,
+	SaveOutlined,
 	SearchOutlined,
 	ShoppingCartIcon,
 	ShoppingCartOutlined,
+	UploadOutlined,
 	VpnKeyOutlined,
 };

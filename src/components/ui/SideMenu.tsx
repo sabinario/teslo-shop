@@ -1,14 +1,12 @@
 import { ChangeEvent, useContext, useState } from 'react';
 
-import { useRouter } from 'next/router';
-
-import { DashboardOutlined } from '@mui/icons-material';
-
 import { AuthContext, UIContext } from 'context';
+import { useRouter } from 'next/router';
 import {
 	AccountCircleOutlined,
 	AdminPanelSettings,
 	Box,
+	CategoryOutlined,
 	ConfirmationNumberOutlined,
 	Divider,
 	Drawer,
@@ -28,6 +26,8 @@ import {
 	SearchOutlined,
 	VpnKeyOutlined,
 } from 'shared/';
+
+import { DashboardOutlined } from '@mui/icons-material';
 
 export const SideMenu = () => {
 	const { user, isLoggedIn, logout } = useContext(AuthContext);
@@ -174,6 +174,17 @@ export const SideMenu = () => {
 							>
 								<ListItemIcon>
 									<DashboardOutlined />
+								</ListItemIcon>
+								<ListItemText primary={'Dashboard'} />
+							</ListItemButton>
+							<ListItemButton
+								onClick={() => {
+									toggleMenu();
+									navigateTo(`/admin/products`);
+								}}
+							>
+								<ListItemIcon>
+									<CategoryOutlined />
 								</ListItemIcon>
 								<ListItemText primary={'Productos'} />
 							</ListItemButton>

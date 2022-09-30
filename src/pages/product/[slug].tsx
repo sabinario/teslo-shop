@@ -1,15 +1,15 @@
 import { useContext, useState } from 'react';
 
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
-
-import { ShopLayout } from 'components/layouts';
-import { ProductSizeSelector } from 'components/products';
-import { ProductSlideshow } from 'components/products/ProductSlideshow';
-import { ItemCounter } from 'components/ui';
+import {
+	ItemCounter,
+	ProductSizeSelector,
+	ProductSlideshow,
+	ShopLayout,
+} from 'components';
 import { CartContext } from 'context';
 import { dbProducts } from 'database';
 import { ICartProduct, IProduct, ISize } from 'interfaces';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { Box, Button, Chip, Grid, Typography } from 'shared';
 
 interface Props {
@@ -17,7 +17,6 @@ interface Props {
 }
 
 const ProductPage: NextPage<Props> = ({ product }: Props) => {
-	const router = useRouter();
 	const { addProduct } = useContext(CartContext);
 	const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
 		_id: product._id,

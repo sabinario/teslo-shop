@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
-import NextLink from 'next/link';
-
 import { IProduct } from 'interfaces';
+import NextLink from 'next/link';
 import {
 	Box,
 	Card,
@@ -23,9 +22,7 @@ export const ProductCard = ({ product }: Props) => {
 	const [isImageLoaded, setIsImageLoaded] = useState(false);
 
 	const productImage = useMemo(() => {
-		return isHovered
-			? `/products/${product.images[0]}`
-			: `/products/${product.images[1]}`;
+		return isHovered ? product.images[0] : product.images[1];
 	}, [isHovered, product.images]);
 
 	return (

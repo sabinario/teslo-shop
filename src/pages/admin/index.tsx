@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import useSWR from 'swr';
-
 import { SummaryTile } from 'components/admin';
 import { AdminLayout } from 'components/layouts';
 import { DashboardSummaryResponse } from 'interfaces';
@@ -18,6 +16,7 @@ import {
 	ProductionQuantityLimitsOutlined,
 	Typography,
 } from 'shared';
+import useSWR from 'swr';
 
 const DashboardPage = () => {
 	const { data, error } = useSWR<DashboardSummaryResponse>(
@@ -31,7 +30,6 @@ const DashboardPage = () => {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			console.log('tick tock');
 			setRefreshIn((refreshIn) => (refreshIn > 0 ? refreshIn - 1 : 30));
 		}, 1000);
 		return () => clearInterval(interval);
